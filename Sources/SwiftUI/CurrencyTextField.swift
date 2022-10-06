@@ -108,11 +108,9 @@ public struct CurrencyTextField: UIViewRepresentable {
     ) -> UITextField {
         let textField = WrappedTextField(configuration: configuration)
         textField.placeholder = configuration.placeholder
-        textField.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        textField.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         textField.keyboardType = .numberPad
         configuration.textFieldConfiguration?(textField)
-
         return textField
     }
 

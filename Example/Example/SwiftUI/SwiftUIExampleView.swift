@@ -33,6 +33,7 @@ struct SwiftUIExampleView: View {
     @State private var currencyFormatter = CurrencyFormatter.default
     @State private var shouldClearTextField = false
     @State private var currency: Currency = .euro
+    @State private var someText: String = ""
 
     var body: some View {
         Form {
@@ -97,7 +98,7 @@ struct SwiftUIExampleView: View {
                     uiTextField.layer.borderColor = UIColor.red.cgColor
                     uiTextField.layer.borderWidth = 1
                     uiTextField.layer.cornerRadius = 4
-                    uiTextField.keyboardType = .numbersAndPunctuation
+                    uiTextField.keyboardType = .asciiCapableNumberPad
                     uiTextField.layer.masksToBounds = true
                 },
                 onEditingChanged: { isEditing in
@@ -127,7 +128,7 @@ private extension CurrencyFormatter {
     static let `default`: CurrencyFormatter = {
         .init {
             $0.currency = .euro
-            $0.locale = CurrencyLocale.germanGermany
+            $0.locale = CurrencyLocale.englishUnitedStates
             $0.hasDecimals = true
             $0.minValue = 5
             $0.maxValue = 100000000

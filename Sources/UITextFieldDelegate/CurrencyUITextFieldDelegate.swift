@@ -112,6 +112,7 @@ extension CurrencyUITextFieldDelegate: UITextFieldDelegate {
         }
         
         setFormattedText(in: textField, inputString: string, range: range)
+        
         return returnAndCallPassThroughDelegate()
     }
 }
@@ -155,7 +156,11 @@ extension CurrencyUITextFieldDelegate {
             if text.isEmpty {
                 textField.text = text
             } else {
-                textField.text = formatter.formattedStringWithAdjustedDecimalSeparator(from: text)
+                if clearsWhenValueIsZero && text.representsZero == true {
+                    textField.text = ""
+                } else {
+                    textField.text = formatter.formattedStringWithAdjustedDecimalSeparator(from: text)
+                }
             }
         }
     }
@@ -183,6 +188,12 @@ extension CurrencyUITextFieldDelegate {
             updatedText.removeLast()
         }
         
-        textField.text = formatter.formattedStringWithAdjustedDecimalSeparator(from: updatedText)
+        let newText = formatter.formattedStringWithAdjustedDecimalSeparator(from: updatedText)
+        
+        if clearsWhenValueIsZero && newText?.representsZero == true {
+            textField.text = ""
+        } else {
+            textField.text = newText
+        }
     }
 }
